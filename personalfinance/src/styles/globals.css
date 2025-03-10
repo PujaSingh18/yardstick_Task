@@ -24,3 +24,46 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.sidebar {
+  width: 60px;
+  height: 80vh;
+  background: linear-gradient(180deg, #6a5acd, #8a2be2);
+  position: fixed;
+  left: 0vh;
+  top: 12vh;
+  clip-path: polygon(0 0, 100% 10%, 100% 90%, 0 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12vh;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 24px;
+  /* Add margin-top for spacing */
+}
+
+.icon:hover,
+.icon.active {
+  background: rgba(255, 255, 255, 0.5);
+}

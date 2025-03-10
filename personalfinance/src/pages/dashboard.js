@@ -5,7 +5,7 @@ import { AiOutlineArrowUp, AiOutlineArrowDown, AiOutlineWallet } from "react-ico
 import FileList from '../components/FileList';
 import { useMediaQuery } from 'react-responsive';
 import TransactionChart from "@/components/TransactionChart";
-import CashCard from "@/components/CashCard"; // Import the new CashCard component
+import CashCard from "@/components/CashCard";
 import CashEntryDialog from "../components/CashEntryDialog";
 
 export default function Dashboard() {
@@ -15,46 +15,48 @@ export default function Dashboard() {
     const [selectedCard, setSelectedCard] = useState(null);
 
     const isMobile = useMediaQuery({ maxWidth: 767 });
+
     const handleOpenDialog = (title, key) => {
         setDialogTitle(title);
         setSelectedCard(key);
         setDialogOpen(true);
     };
+
     const handleCloseDialog = () => {
         setDialogOpen(false);
     };
+
     const [cashData, setCashData] = useState({
         cashIn: 50000,
         cashOut: 30000,
         balance: 20000
     });
+
     const handleSubmit = (value) => {
         console.log(`Submitted ${value} for ${dialogTitle}`);
     };
 
     return (
-        <div className="flex bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-300">
-            {/* Mobile Menu Button */}
+        <div className="flex min-h-screen transition-colors duration-300">
+            {/* Sidebar (Fixed) */}
+            <div className={`fixed top-0 left-0 h-full bg-white-800 w-10 md:w-10 transition-all duration-300
+                ${isMobile ? (sidebarOpen ? "translate-x-0" : "-translate-x-full") : "translate-x-0"} z-50 shadow-lg`}>
+                <Sidebar />
+            </div>
+
+            {/* Hamburger Button (Only in Mobile View) */}
             {isMobile && (
                 <button
-                    className="absolute top-4 left-4 p-2 bg-gray-800 text-white rounded-lg"
+                    className="fixed top-4 left-4 p-2 bg-gray-800 text-white rounded-lg z-50"
                     onClick={() => setSidebarOpen(!sidebarOpen)}
                 >
                     <FiMenu size={24} />
                 </button>
             )}
 
-            {/* Sidebar */}
-            <div
-                className={`fixed inset-y-0 left-0 transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-                    } md:translate-x-0 md:relative transition-transform duration-300 ease-in-out z-50`}
-            >
-                <Sidebar />
-            </div>
-
-            {/* Main Content */}
-            <div className="flex-1 p-4 md:p-8">
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-4 md:mb-6">
+            {/* Main Content (Allows Scrolling) */}
+            <div className="flex-1 ml-60 md:ml-64 p-6 md:p-8 bg-gray-100 dark:bg-gray-900 overflow-auto">
+                <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-6">
                     Dashboard
                 </h1>
 
@@ -83,21 +85,23 @@ export default function Dashboard() {
                         bgColor="from-blue-500 to-blue-700"
                         icon={<AiOutlineWallet size={28} className="text-blue-800" />}
                     />
-                    <CashEntryDialog
-                        open={dialogOpen}
-                        handleClose={handleCloseDialog}
-                        title={dialogTitle}
-                        onSubmit={handleSubmit}
-                    />
                 </div>
 
+                {/* Cash Entry Dialog */}
+                <CashEntryDialog
+                    open={dialogOpen}
+                    handleClose={handleCloseDialog}
+                    title={dialogTitle}
+                    onSubmit={handleSubmit}
+                />
+
                 {/* Transaction Chart Section */}
-                <div className="mt-6 bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow">
+                <div className="mt-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
                     <TransactionChart />
                 </div>
 
                 {/* File List Section */}
-                <div className="mt-6 bg-white dark:bg-gray-800 p-4 md:p-6 rounded-lg shadow">
+                <div className="mt-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
                     <FileList />
                 </div>
             </div>
