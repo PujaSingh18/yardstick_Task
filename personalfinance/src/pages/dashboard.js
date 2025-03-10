@@ -29,9 +29,9 @@ export default function Dashboard() {
         balance: 20000
     });
     const handleSubmit = (value) => {
-        console.log(`Submitted ${value} for ${dialogType}`);
-        // Handle the amount submission logic here
+        console.log(`Submitted ${value} for ${dialogTitle}`);
     };
+
     return (
         <div className="flex bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors duration-300">
             {/* Mobile Menu Button */}
