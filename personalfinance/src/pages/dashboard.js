@@ -82,7 +82,6 @@ export default function Dashboard() {
                         lastTransaction={1000}
                         bgColor="from-blue-500 to-blue-700"
                         icon={<AiOutlineWallet size={28} className="text-blue-800" />}
-                        onIconClick={() => handleOpenDialog("Balance", "balance")}
                     />
                     <CashEntryDialog
                         open={dialogOpen}
